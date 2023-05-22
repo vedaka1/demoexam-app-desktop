@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>350</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>350</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Tw Cen MT</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: white;</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item alignment="Qt::AlignTop">
+    <widget class="QLineEdit" name="login_field">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+     </property>
+     <property name="placeholderText">
+      <string>пароль</string>
+     </property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignTop">
+    <widget class="QLineEdit" name="password_field">
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+     </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhHiddenText|Qt::ImhMultiLine|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferNumbers|Qt::ImhSensitiveData</set>
+     </property>
+     <property name="inputMask">
+      <string/>
+     </property>
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>логин</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item alignment="Qt::AlignHCenter|Qt::AlignBottom">
+      <widget class="QPushButton" name="login_button">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>36</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Tw Cen MT</family>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Войти</string>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+      <widget class="QPushButton" name="register_button">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Tw Cen MT</family>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Зарегистрироваться</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

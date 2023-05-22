@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>389</width>
+    <height>580</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: white;</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="login_field">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Normal</enum>
+       </property>
+       <property name="placeholderText">
+        <string>логин</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="name_field">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhMultiLine|Qt::ImhPreferNumbers</set>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Normal</enum>
+       </property>
+       <property name="placeholderText">
+        <string>имя</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="password_field">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhHiddenText|Qt::ImhMultiLine|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhPreferNumbers|Qt::ImhSensitiveData</set>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string notr="true"/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+       <property name="placeholderText">
+        <string>пароль</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="customer_radio">
+       <property name="text">
+        <string>Заказчик</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">buttonGroup</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="manager_radio">
+       <property name="text">
+        <string>Менеджер</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">buttonGroup</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="director_radio">
+       <property name="text">
+        <string>Директор</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">buttonGroup</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="worker_radio">
+       <property name="text">
+        <string>Кладовщик</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">buttonGroup</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+      <widget class="QPushButton" name="register_button">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Tw Cen MT</family>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: 1px solid gray;
+border-radius: 15px;
+padding: 10px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Зарегистрироваться</string>
+       </property>
+      </widget>
+     </item>
+     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+      <widget class="QPushButton" name="to_login_button">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+background: none;
+border: none;
+padding: 10px;
+}</string>
+       </property>
+       <property name="text">
+        <string>Назад</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
+</ui>
