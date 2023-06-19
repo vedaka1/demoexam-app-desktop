@@ -10,6 +10,11 @@ db = Database()
 value = ''
 AUTH = False
 
+def check_auth():
+    if not AUTH:
+        widget.addWidget(Login())
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
 class Error(QtWidgets.QDialog):
     def __init__(self, error_message):
         super(Error, self).__init__()
@@ -28,7 +33,9 @@ class Login(QtWidgets.QDialog):
         login = self.login_field.text()
         password = self.password_field.text()
         try:
-            if db.authenticate_user(login, password):
+            user = db.authenticate_user(login, password)
+            if user:
+                print(user[1][2])
                 AUTH = True
                 widget.addWidget(Main(login))
                 widget.setCurrentIndex(widget.currentIndex() + 1)
@@ -49,7 +56,33 @@ class Main(QtWidgets.QDialog):
     def __init__(self, login):
         super(Main, self).__init__()
         uic.loadUi("ui/MainPage.ui", self)
+        # check_auth()
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
         self.login_field.setText("Ваш логин: " + login)
+        self.search_btn.clicked.connect(self.search)
+
+    def load_data(self, table_name):
+        try:
+            items = db.print_table(table_name)
+            tablerow = 0
+            tablecolumn = 0
+            self.tableWidget.setRowCount(len(items[0]))
+            self.tableWidget.setColumnCount(len(items[1]))
+            for head in items[1]:
+                self.tableWidget.setHorizontalHeaderItem(tablecolumn, QtWidgets.QTableWidgetItem(head))
+                tablecolumn += 1
+            for row in items[0]:
+                for y in range(len(row)):
+                    self.tableWidget.setItem(tablerow, y, QtWidgets.QTableWidgetItem(str(row[y])))
+                tablerow += 1
+        except:
+            message = traceback.format_exc()
+            dialog = Error(message)
+            dialog.exec()
+        
+    def search(self):
+        table_name = self.search_field.text()
+        self.load_data(table_name)
 
 
 class Register(QtWidgets.QDialog):
@@ -81,7 +114,9 @@ class Register(QtWidgets.QDialog):
             try:
                 db.user_register(login, password, role, name)
             except:
-                print(traceback.format_exception())
+                message = traceback.format_exc()
+                dialog = Error(message)
+                dialog.exec()
             self.to_login()
         else:
             print('Одно из полей не заполнено!')
