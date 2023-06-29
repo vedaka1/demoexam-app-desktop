@@ -1,8 +1,7 @@
 import sys, traceback
-import typing
+import time
 
-from PyQt5.QtWidgets import QWidget
-from database import Database
+from database_old import Database
 from PyQt5 import QtCore, QtWidgets, uic
 
 
@@ -35,10 +34,10 @@ class Login(QtWidgets.QDialog):
         try:
             user = db.authenticate_user(login, password)
             if user:
-                print(user[1][2])
                 AUTH = True
-                widget.addWidget(Main(login))
-                widget.setCurrentIndex(widget.currentIndex() + 1)
+                if user[1][2] == 'manager':
+                    widget.addWidget(WarehouseManPage(login))
+                    widget.setCurrentIndex(widget.currentIndex() + 1)
             else:
                 message = "Указаны неверные данные"
                 dialog = Error(message)
@@ -56,7 +55,7 @@ class Main(QtWidgets.QDialog):
     def __init__(self, login):
         super(Main, self).__init__()
         uic.loadUi("ui/MainPage.ui", self)
-        # check_auth()
+        check_auth()
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
         self.login_field.setText("Ваш логин: " + login)
         self.search_btn.clicked.connect(self.search)
@@ -66,12 +65,12 @@ class Main(QtWidgets.QDialog):
             items = db.print_table(table_name)
             tablerow = 0
             tablecolumn = 0
-            self.tableWidget.setRowCount(len(items[0]))
-            self.tableWidget.setColumnCount(len(items[1]))
-            for head in items[1]:
+            self.tableWidget.setColumnCount(len(items[0]))
+            self.tableWidget.setRowCount(len(items[1]))
+            for head in items[0]:
                 self.tableWidget.setHorizontalHeaderItem(tablecolumn, QtWidgets.QTableWidgetItem(head))
                 tablecolumn += 1
-            for row in items[0]:
+            for row in items[1]:
                 for y in range(len(row)):
                     self.tableWidget.setItem(tablerow, y, QtWidgets.QTableWidgetItem(str(row[y])))
                 tablerow += 1
@@ -84,6 +83,54 @@ class Main(QtWidgets.QDialog):
         table_name = self.search_field.text()
         self.load_data(table_name)
 
+class WarehouseManPage(QtWidgets.QDialog):
+    def __init__(self, login):
+        super(WarehouseManPage, self).__init__()
+        uic.loadUi("ui/WarehouseMan.ui", self)
+        check_auth()
+        self.cloth_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
+        self.fittings_table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
+        self.login_field.setText("Ваш логин: " + login)
+        self.items_cloth = db.print_table('cloth')  
+        self.items_fittings = db.print_table('fittings')  
+        self.search_cloth.textChanged.connect(self.search)
+        self.search_fittings.textChanged.connect(self.search)
+
+    def create_table(self, data):
+        try:
+            tablerow = 0
+            tablecolumn = 0
+            self.cloth_table.setColumnCount(len(data[0]))
+            self.cloth_table.setRowCount(len(data[1]))
+            for head in data[0]:
+                self.cloth_table.setHorizontalHeaderItem(tablecolumn, QtWidgets.QTableWidgetItem(head))
+                tablecolumn += 1
+            for row in data[1]:
+                for y in range(len(row)):
+                    self.cloth_table.setItem(tablerow, y, QtWidgets.QTableWidgetItem(str(row[y])))
+                tablerow += 1
+        except:
+            message = traceback.format_exc()
+            dialog = Error(message)
+            dialog.exec()
+        
+    def search(self):
+        start_time = time.time()
+        new_array = (self.items_cloth[0],[])
+        text_search = self.search_cloth.text()
+        for item in self.items_cloth[1]:
+            for word in enumerate(item):
+                if text_search in str(word):
+                    new_array[1].append(item)
+                    continue
+
+        self.create_table(new_array)
+        end_time = time.time()
+        print(f"Elapsed time: {end_time - start_time} seconds")
+
+        # result = self.cloth_table.findItems(text_search, QtCore.Qt.MatchContains)
+        # for item in result:
+        #     print(item.text())
 
 class Register(QtWidgets.QDialog):
     def __init__(self):
@@ -124,7 +171,7 @@ class Register(QtWidgets.QDialog):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     widget = QtWidgets.QStackedWidget()
-    widget.addWidget(Login())
+    widget.addWidget(WarehouseManPage('fe'))
     widget.setWindowTitle('Database')
     widget.show()
     app.exec()

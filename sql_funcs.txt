@@ -1,0 +1,46 @@
+// Print user table
+CREATE OR REPLACE FUNCTION demo_01.select_user(character varying)
+ RETURNS TABLE(userlogin character varying, userpassword character varying, rolename character varying)
+ LANGUAGE plpgsql
+AS $function$
+begin
+	return query (select "User".userlogin, "User".userpassword , "Role".rolename 
+	from demo_01."User"
+	join demo_01."Role" on "User".userrole = roleid 
+	where "User".userlogin = $1);
+end;
+$function$
+;
+
+// search and table view
+def create_table(self, data):
+        try:
+            tablerow = 0
+            tablecolumn = 0
+            self.cloth_table.setColumnCount(len(data[0]))
+            self.cloth_table.setRowCount(len(data[1]))
+            for head in data[0]:
+                self.cloth_table.setHorizontalHeaderItem(tablecolumn, QtWidgets.QTableWidgetItem(head))
+                tablecolumn += 1
+            for row in data[1]:
+                for y in range(len(row)):
+                    self.cloth_table.setItem(tablerow, y, QtWidgets.QTableWidgetItem(str(row[y])))
+                tablerow += 1
+        except:
+            message = traceback.format_exc()
+            dialog = Error(message)
+            dialog.exec()
+        
+    def search(self):
+        start_time = time.time()
+        new_array = (self.items_cloth[0],[])
+        text_search = self.search_cloth.text()
+        for item in self.items_cloth[1]:
+            for word in enumerate(item):
+                if text_search in str(word):
+                    new_array[1].append(item)
+                    continue
+
+        self.create_table(new_array)
+        end_time = time.time()
+        print(f"Elapsed time: {end_time - start_time} seconds")
